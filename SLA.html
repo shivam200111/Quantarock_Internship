@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLA Uptime Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #383373;
+  }
+  .container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    animation: slideIn 0.8s ease;
+  }
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 16px;
+    text-align: left;
+    font-size: 16px;
+  }
+  input[type="number"] {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  button {
+    background-color: #383373;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #383373;
+  }
+  #result {
+    font-size: 20px;
+    margin-top: 30px;
+    color: #383373;
+    font-weight: bold;
+    animation: fadeIn 0.8s ease;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Media Queries */
+  @media only screen and (max-width: 600px) {
+    .container {
+      padding: 20px;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    label {
+      font-size: 14px;
+    }
+    input[type="number"] {
+      font-size: 12px;
+    }
+    button {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+    #result {
+      font-size: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>SLA Uptime Calculator</h1>
+  <form id="uptimeForm">
+    <label for="totalTime">Total Available Time (hours):</label>
+    <input type="number" id="totalTime" min="1" required>
+    <label for="downtime">Downtime (hours):</label>
+    <input type="number" id="downtime" min="0" required>
+    <button type="submit">Calculate</button>
+  </form>
+  <p id="result"></p>
+</div>
+
+<script>
+document.getElementById('uptimeForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  calculateUptime();
+});
+
+function calculateUptime() {
+  var totalTime = document.getElementById("totalTime").value;
+  var downtime = document.getElementById("downtime").value;
+
+  if (totalTime === "" || downtime === "") {
+    alert("Please enter values for both fields.");
+    return;
+  }
+
+  var uptimePercentage = ((totalTime - downtime) / totalTime) * 100;
+  document.getElementById("result").innerHTML = "SLA Uptime: " + uptimePercentage.toFixed(2) + "%";
+}
+</script>
+</body>
+</html>

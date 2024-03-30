@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Blacklist Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #383373;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #checker {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #383373;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #383373;
+        }
+
+        #result {
+            margin-top: 20px;
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="checker">
+    <h2>IP Blacklist Checker</h2>
+    <label for="ipAddress">IP Address:</label>
+    <input type="text" id="ipAddress" placeholder="Enter IP address" required>
+
+    <button onclick="checkBlacklist()">Check Blacklist</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function checkBlacklist() {
+        const ipAddress = document.getElementById("ipAddress").value;
+        const apiUrl = https://api.ipify.org?format=json&blacklist=${ipAddress};
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const resultElement = document.getElementById("result");
+                if (data.blacklisted) {
+                    resultElement.innerHTML = IP Address ${ipAddress} is blacklisted.;
+                } else {
+                    resultElement.innerHTML = IP Address ${ipAddress} is not blacklisted.;
+                }
+            })
+            .catch(error => {
+                const resultElement = document.getElementById("result");
+                resultElement.innerHTML = Error: ${error.message};
+            });
+    }
+</script>
+
+</body>
+</html>
